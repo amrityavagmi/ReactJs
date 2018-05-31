@@ -1,11 +1,12 @@
-import {applyMiddleware,createStore} from "redux";
-import logger from "redux-logger";
-const reducer = function(state=[],action){
-	return state;
-}
-const middleware=applyMiddleware(logger());
-const store = createStore(reducer,middleware);
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import TodoBox from "./redux_things/app"
+import {Provider} from "react-redux"
 
-store.dispatch({type:"CHANGE_NAME",payload:"aditya"})
-store.dispatch({type:"CHANGE_AGE",payload:21})
-
+import {store} from "./store/store"
+ReactDOM.render(
+	<Provider store={store}>
+		<TodoBox/>
+	</Provider>
+	,document.getElementById('root'));
