@@ -72,15 +72,26 @@ class Remove extends React.Component{
   }
 }
 class AddTodoItems extends React.Component{
-  
+  constructor(props){
+    super(props);
+    this.state={textInputValue:""};
+    this.handleClickHere=this.handleClickHere.bind(this);
+    this.handleSubmitHere=this.handleSubmitHere.bind(this);
+  }
+  handleClickHere(change){
+    this.setState({textInputValue:change.target.value});
+  }
+  handleSubmitHere(change){
+    this.props.gettingoutof_editing_mode(this.state.textInputValue);
+  }
   render(){
     return (
-    <div>
-      <textarea id="todo_add_item" placeholder="enter the todo item"></textarea>
       <div>
-        <button className="button-primary" onClick={()=>this.props.gettingoutof_editing_mode(document.getElementById('todo_add_item').value)}>Return</button>
+        <form  onSubmit={this.handleSubmitHere}>
+          <input type="text" onChange={this.handleClickHere}/>
+          <input type="submit" value="Add" />
+        </form>
       </div>
-    </div>
     );
   }
 }

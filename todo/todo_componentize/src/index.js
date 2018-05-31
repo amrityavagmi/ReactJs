@@ -1,13 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-class Todoapp extends React.Component{
-  render(){
-    return(
-      <TodoBox/>
-    );
-  }
-}
+
 class TodoBox extends React.Component{
   constructor(props){
     super(props);
@@ -50,11 +44,11 @@ class TodoBox extends React.Component{
         <AddTodoItems gettingoutof_editing_mode={this.gettingoutof_editing_mode}/>
       );
     }
-    
+
   }
 }
 class Enter extends React.Component{
-  
+
   render(){
     return(
       <div>
@@ -73,16 +67,27 @@ class Remove extends React.Component{
   }
 }
 class AddTodoItems extends React.Component{
-  
+  constructor(props){
+    super(props);
+    this.state={textInputValue:""};
+    this.handleClickHere=this.handleClickHere.bind(this);
+    this.handleSubmitHere=this.handleSubmitHere.bind(this);
+  }
+  handleClickHere(change){
+    this.setState({textInputValue:change.target.value});
+  }
+  handleSubmitHere(change){
+    this.props.gettingoutof_editing_mode(this.state.textInputValue);
+  }
   render(){
     return (
-    <div>
-      <textarea id="todo_add_item" defalutValue="enter the todo item"></textarea>
       <div>
-        <button className="button-primary" onClick={()=>this.props.gettingoutof_editing_mode(document.getElementById('todo_add_item').value)}>Return</button>
+        <form  onSubmit={this.handleSubmitHere}>
+          <input type="text" onChange={this.handleClickHere}/>
+          <input type="submit" value="Add" />
+        </form>
       </div>
-    </div>
     );
   }
 }
-ReactDOM.render(<Todoapp />,document.getElementById('root'));
+ReactDOM.render(<TodoBox />,document.getElementById('root'));
